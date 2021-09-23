@@ -1,7 +1,7 @@
-import { AppException } from "@exceptions/AppException";
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
 import { CreateUserUseCase } from "@modules/accounts/useCases/createUser/CreateUserUseCase";
+import { AppException } from "@shared/exceptions/AppException";
 
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 

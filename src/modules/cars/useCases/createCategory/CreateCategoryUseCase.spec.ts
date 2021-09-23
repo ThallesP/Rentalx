@@ -1,5 +1,5 @@
-import { AppException } from "@exceptions/AppException";
 import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
+import { AppException } from "@shared/exceptions/AppException";
 
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
