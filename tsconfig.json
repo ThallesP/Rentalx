@@ -20,9 +20,6 @@
         "utils/*"
       ]
     },
-    "typeRoots": [
-      "./src/@types"
-    ],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,

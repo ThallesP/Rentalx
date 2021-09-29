@@ -9,8 +9,6 @@ import { Category } from "../entities/Category";
 export class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>;
 
-  private static INSTANCE: CategoriesRepository;
-
   constructor() {
     this.repository = getRepository(Category);
   }
