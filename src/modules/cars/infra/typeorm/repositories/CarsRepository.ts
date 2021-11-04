@@ -36,7 +36,7 @@ export class CarsRepository implements ICarsRepository {
       specifications,
       fine_amount,
       name,
-      id: id ? undefined : id,
+      ...(id && { id }),
     });
 
     await this.repository.save(car);
