@@ -1,4 +1,5 @@
 export interface IDateProvider {
-  compareInHours(start_date: Date, end_date: Date): number;
+  compareInHours(startDate: Date, endDate: Date): number;
   dateNow(): Date;
+  compareInDays(startDate: Date, endDate: Date): number;
 }

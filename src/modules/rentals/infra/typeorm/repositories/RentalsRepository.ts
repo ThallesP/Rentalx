@@ -12,6 +12,10 @@ export class RentalsRepository implements IRentalsRepository {
     this.repository = getRepository(Rental);
   }
 
+  async findById(id: string): Promise<Rental> {
+    return this.repository.findOne(id);
+  }
+
   async findOpenRentalByCar(car_id: string): Promise<Rental> {
     const rentalOpenByCar = await this.repository.findOne({
       car_id,
@@ -31,14 +35,20 @@ export class RentalsRepository implements IRentalsRepository {
   }
 
   async create({
+    id,
     car_id,
     user_id,
     expected_return_date,
+    end_date,
+    total,
   }: ICreateRentalDTO): Promise<Rental> {
     const rental = this.repository.create({
+      ...(id && { id }),
       car_id,
       user_id,
       expected_return_date,
+      total,
+      end_date,
     });
 
     await this.repository.save(rental);
