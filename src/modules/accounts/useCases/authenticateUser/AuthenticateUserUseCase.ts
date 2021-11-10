@@ -2,7 +2,10 @@ import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
+import auth from "@config/auth";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppException } from "@shared/exceptions/AppException";
 
 interface IRequest {
@@ -16,13 +19,20 @@ interface IResponse {
     email: string;
   };
   token: string;
+  refreshToken: string;
 }
 
 @injectable()
 export class AuthenticateUserUseCase {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+
+    @inject("UsersTokensRepository")
+    private usersTokensRepository: IUsersTokensRepository,
+
+    @inject("DayJSDateProvider")
+    private dateProvider: IDateProvider
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -38,9 +48,24 @@ export class AuthenticateUserUseCase {
       throw new AppException("Email/password is incorrect.", 401);
     }
 
-    const token = sign({ email }, "1852ca7f66f74c0899182da4b49fe477", {
+    const token = sign({ email }, auth.secret_token, {
       subject: userExists.id,
-      expiresIn: "1d",
+      expiresIn: auth.expires_in_token,
+    });
+
+    const refreshToken = sign({ email }, auth.secret_refresh_token, {
+      subject: userExists.id,
+      expiresIn: auth.expires_in_refresh_token,
+    });
+
+    const refreshTokenExpiresDate = this.dateProvider.addDays(
+      auth.expires_refresh_token_days
+    );
+
+    await this.usersTokensRepository.create({
+      expires_date: refreshTokenExpiresDate,
+      refresh_token: refreshToken,
+      user_id: userExists.id,
     });
 
     return {
@@ -49,6 +74,7 @@ export class AuthenticateUserUseCase {
         email: userExists.email,
       },
       token,
+      refreshToken,
     };
   }
 }

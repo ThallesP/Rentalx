@@ -6,6 +6,10 @@ import { IDateProvider } from "../IDateProvider";
 dayjs.extend(utc);
 
 export class DayJSDateProvider implements IDateProvider {
+  addDays(days: number): Date {
+    return dayjs().add(days, "days").toDate();
+  }
+
   compareInDays(startDate: Date, endDate: Date): number {
     const startDateUTC = this.dateToUTC(startDate);
     const endDateUTC = this.dateToUTC(endDate);
