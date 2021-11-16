@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { deleteFile } from "@utils/file";
+import { IStorageProvider } from "@shared/container/providers/StorageProvider/IStorageProvider";
 
 interface IRequest {
   user_id: string;
@@ -12,7 +12,10 @@ interface IRequest {
 export class UpdateUserAvatarUseCase {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+
+    @inject("StorageProvider")
+    private storageProvider: IStorageProvider
   ) {}
 
   async execute({ user_id, avatar_file }: IRequest): Promise<void> {
@@ -22,11 +25,12 @@ export class UpdateUserAvatarUseCase {
 
     user.avatar = avatar_file;
 
+    await this.storageProvider.save(avatar_file, "avatars");
+
     await this.usersRepository.create(user);
 
-    if (user.avatar) {
-      // If some request happens to get the old avatar between this update, it may be null, so it better to delete after updating.
-      await deleteFile(`./tmp/avatar/${oldAvatarFile}`);
+    if (oldAvatarFile) {
+      await this.storageProvider.delete(oldAvatarFile, "avatars");
     }
   }
 }
