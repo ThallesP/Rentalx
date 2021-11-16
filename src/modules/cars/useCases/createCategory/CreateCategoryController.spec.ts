@@ -34,11 +34,11 @@ describe("Create Category Controller", () => {
       password: "admin",
     });
 
-    const { token } = responseToken.body;
+    const { refreshToken } = responseToken.body;
 
     const response = await request(app)
       .post("/categories/")
-      .set("Authorization", `Bearer ${token}`)
+      .set("Authorization", `Bearer ${refreshToken}`)
       .send({
         name: "Category name SuperTest",
         description: "Category description SuperTest",
@@ -53,11 +53,11 @@ describe("Create Category Controller", () => {
       password: "admin",
     });
 
-    const { token } = responseToken.body;
+    const { refreshToken } = responseToken.body;
 
     await request(app)
       .post("/categories/")
-      .set("Authorization", `Bearer ${token}`)
+      .set("Authorization", `Bearer ${refreshToken}`)
       .send({
         name: "Category name duplicated SuperTest",
         description: "Category description not duplicated SuperTest",
@@ -65,7 +65,7 @@ describe("Create Category Controller", () => {
 
     const response = await request(app)
       .post("/categories/")
-      .set("Authorization", `Bearer ${token}`)
+      .set("Authorization", `Bearer ${refreshToken}`)
       .send({
         name: "Category name duplicated SuperTest",
         description: "Category description SuperTest",
