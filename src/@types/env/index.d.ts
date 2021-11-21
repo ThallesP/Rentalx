@@ -6,6 +6,8 @@ declare namespace NodeJS {
     AWS_SECRET_ACCESS_KEY: string;
     AWS_S3_BUCKET: string;
     AWS_BUCKET_REGION: string;
+    AWS_BUCKET_URL: string;
+    APP_API_URL: string;
     STORAGE_TYPE: "S3" | "LOCAL";
   }
 }
