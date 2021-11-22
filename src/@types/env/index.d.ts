@@ -8,6 +8,9 @@ declare namespace NodeJS {
     AWS_BUCKET_REGION: string;
     AWS_BUCKET_URL: string;
     APP_API_URL: string;
+    AWS_REGION: string;
+    MAIL_ADDRESS: string;
+    MAIL_PROVIDER: "S3" | "ETHEREAL";
     STORAGE_TYPE: "S3" | "LOCAL";
   }
 }
