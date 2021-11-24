@@ -15,11 +15,14 @@ import { rateLimiter } from "./middlewares/rateLimiter";
 
 const app = express();
 
+if (process.env.ENABLE_TRANSLATE_PROXY_REAL_IP === "true") {
+  app.set("trust proxy", () => true);
+}
+
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/avatars", express.static(`${upload.tmpFolder}/avatars`));
 app.use("/cars", express.static(`${upload.tmpFolder}/cars`));
-
 app.use(cors());
 app.use(rateLimiter);
 app.use(router);

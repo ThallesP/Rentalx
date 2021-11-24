@@ -15,5 +15,6 @@ declare namespace NodeJS {
     REDIS_HOST: string;
     REDIS_PORT: string;
     REDIS_PASSWORD: string;
+    ENABLE_TRANSLATE_PROXY_REAL_IP: string;
   }
 }
