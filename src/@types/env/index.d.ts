@@ -12,5 +12,8 @@ declare namespace NodeJS {
     MAIL_ADDRESS: string;
     MAIL_PROVIDER: "S3" | "ETHEREAL";
     STORAGE_TYPE: "S3" | "LOCAL";
+    REDIS_HOST: string;
+    REDIS_PORT: string;
+    REDIS_PASSWORD: string;
   }
 }
