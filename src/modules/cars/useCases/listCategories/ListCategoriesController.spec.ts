@@ -34,11 +34,11 @@ describe("List categories controller", () => {
       password: "admin",
     });
 
-    const { refreshToken } = responseToken.body;
+    const { token } = responseToken.body;
 
     await request(app)
       .post("/categories/")
-      .set("Authorization", `Bearer ${refreshToken}`)
+      .set("Authorization", `Bearer ${token}`)
       .send({
         name: "Category name SuperTest",
         description: "Category description SuperTest",
