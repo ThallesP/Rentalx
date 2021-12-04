@@ -19,19 +19,5 @@ services:
     ports:
       - "6379:6379"
 
-  app:
-    build: .
-    depends_on:
-      - database_ignite
-      - redis_ignite
-    links:
-      - database_ignite
-      - redis_ignite
-    container_name: rentx
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/usr/app
-
 volumes:
   pgdata:

@@ -1,13 +1,12 @@
 import { Connection, createConnection, getConnectionOptions } from "typeorm";
 
-createConnection();
+import { ormconfig } from "@config/ormconfig";
 
 export default async (): Promise<Connection> => {
-  const options = await getConnectionOptions();
-
-  Object.assign(options, {
-    database: process.env.NODE_ENV === "test" ? "rentx_test" : options.database,
+  Object.assign(ormconfig, {
+    database:
+      process.env.NODE_ENV === "test" ? "rentx_test" : ormconfig.database,
   });
 
-  return createConnection(options);
+  return createConnection(ormconfig);
 };

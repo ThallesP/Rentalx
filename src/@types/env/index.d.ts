@@ -17,5 +17,6 @@ declare namespace NodeJS {
     REDIS_PASSWORD: string;
     ENABLE_TRANSLATE_PROXY_REAL_IP: string;
     SENTRY_DSN: string;
+    DATABASE_URL: string;
   }
 }

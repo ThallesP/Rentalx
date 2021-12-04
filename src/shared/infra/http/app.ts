@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv/config";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
@@ -6,7 +7,7 @@ import swaggerUi from "swagger-ui-express";
 
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
-import "@shared/infra/typeorm";
+import createConnection from "@shared/infra/typeorm";
 import "@shared/container";
 import upload from "@config/upload";
 import { AppException } from "@shared/exceptions/AppException";
@@ -16,6 +17,7 @@ import swaggerFile from "../../../swagger.json";
 import { rateLimiter } from "./middlewares/rateLimiter";
 
 const app = express();
+createConnection();
 
 if (process.env.ENABLE_TRANSLATE_PROXY_REAL_IP === "true") {
   app.set("trust proxy", () => true);
