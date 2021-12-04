@@ -5,7 +5,13 @@ export async function cloudflareSupport(
   response: Response,
   next: NextFunction
 ): Promise<void> {
-  request.ip = request.headers["cf-connecting-ip"] as string;
+  Object.defineProperty(request, "ip", {
+    configurable: true,
+    enumerable: true,
+    get: () => {
+      return request.headers["cf-connecting-ip"] as string;
+    },
+  });
 
   return next();
 }

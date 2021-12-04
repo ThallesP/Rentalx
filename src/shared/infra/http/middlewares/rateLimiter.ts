@@ -20,6 +20,7 @@ export async function rateLimiter(
   next: NextFunction
 ): Promise<Response | void> {
   try {
+    console.log(request.ip);
     await limiter.consume(request.ip);
 
     return next();
