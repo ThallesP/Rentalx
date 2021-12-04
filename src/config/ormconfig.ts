@@ -12,7 +12,7 @@ const {
 
 const codeFolder = process.env.NODE_ENV === "production" ? "dist" : "src";
 
-export const ormconfig: PostgresConnectionOptions = {
+export default {
   type: "postgres",
   host,
   username,
@@ -26,7 +26,7 @@ export const ormconfig: PostgresConnectionOptions = {
   migrations: [
     join(
       process.cwd(),
-      `${codeFolder}/infra/typeorm`,
+      `${codeFolder}/shared/infra/typeorm`,
       "/migrations/**/*{.ts,.js}"
     ),
   ],
@@ -37,7 +37,7 @@ export const ormconfig: PostgresConnectionOptions = {
         }
       : undefined,
   cli: {
-    migrationsDir: "src/migrations",
+    migrationsDir: `${codeFolder}/migrations`,
   },
   synchronize: false,
-};
+} as PostgresConnectionOptions;

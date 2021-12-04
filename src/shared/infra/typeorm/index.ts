@@ -1,6 +1,6 @@
-import { Connection, createConnection, getConnectionOptions } from "typeorm";
+import { Connection, createConnection } from "typeorm";
 
-import { ormconfig } from "@config/ormconfig";
+import ormconfig from "@config/ormconfig";
 
 export default async (): Promise<Connection> => {
   Object.assign(ormconfig, {
