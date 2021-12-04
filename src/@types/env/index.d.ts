@@ -13,6 +13,7 @@ declare namespace NodeJS {
     MAIL_PROVIDER: "S3" | "ETHEREAL";
     STORAGE_TYPE: "S3" | "LOCAL";
     REDIS_URL: string;
+    PORT?: string;
     ENABLE_TRANSLATE_PROXY_REAL_IP: string;
     SENTRY_DSN: string;
     DATABASE_URL: string;
