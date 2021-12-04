@@ -5,9 +5,7 @@ import redis from "redis";
 import { AppException } from "@shared/exceptions/AppException";
 
 const redisClient = redis.createClient({
-  host: process.env.REDIS_HOST,
-  password: process.env.REDIS_PASSWORD,
-  port: Number(process.env.REDIS_PASSWORD),
+  url: process.env.REDIS_URL,
   enable_offline_queue: false,
 });
 
