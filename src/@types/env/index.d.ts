@@ -14,7 +14,7 @@ declare namespace NodeJS {
     STORAGE_TYPE: "S3" | "LOCAL";
     REDIS_URL: string;
     PORT?: string;
-    ENABLE_TRANSLATE_PROXY_REAL_IP: string;
+    CLOUDFLARE_SUPPORT: string;
     SENTRY_DSN: string;
     DATABASE_URL: string;
   }

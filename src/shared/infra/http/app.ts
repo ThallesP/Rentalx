@@ -14,13 +14,14 @@ import { router } from "@shared/infra/http/routes";
 import createConnection from "@shared/infra/typeorm";
 
 import swaggerFile from "../../../swagger.json";
+import { cloudflareSupport } from "./middlewares/cloudflareSupport";
 import { rateLimiter } from "./middlewares/rateLimiter";
 
 const app = express();
 createConnection();
 
-if (process.env.ENABLE_TRANSLATE_PROXY_REAL_IP === "true") {
-  app.set("trust proxy", () => true);
+if (process.env.CLOUDFLARE_SUPPORT === "true") {
+  app.use(cloudflareSupport);
 }
 
 Sentry.init({
