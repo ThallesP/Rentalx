@@ -5,13 +5,13 @@ import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 
+import upload from "@config/upload";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
-import createConnection from "@shared/infra/typeorm";
 import "@shared/container";
-import upload from "@config/upload";
 import { AppException } from "@shared/exceptions/AppException";
 import { router } from "@shared/infra/http/routes";
+import createConnection from "@shared/infra/typeorm";
 
 import swaggerFile from "../../../swagger.json";
 import { rateLimiter } from "./middlewares/rateLimiter";
