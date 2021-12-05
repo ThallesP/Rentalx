@@ -7,12 +7,13 @@ import upload from "@config/upload";
 
 import { IStorageProvider } from "../IStorageProvider";
 
-export class S3StorageProvider implements IStorageProvider {
+export class S3CompatibleStorageProvider implements IStorageProvider {
   private client: S3;
 
   constructor() {
     this.client = new S3({
-      region: process.env.AWS_BUCKET_REGION,
+      endpoint: process.env.S3_ENDPOINT,
+      region: process.env.S3_BUCKET_REGION,
     });
   }
 
@@ -25,7 +26,7 @@ export class S3StorageProvider implements IStorageProvider {
 
     await this.client
       .putObject({
-        Bucket: `${process.env.AWS_S3_BUCKET}/${folder}`,
+        Bucket: `${process.env.S3_BUCKET}/${folder}`,
         Key: file,
         ACL: "public-read",
         Body: fileContent,
@@ -41,7 +42,7 @@ export class S3StorageProvider implements IStorageProvider {
   async delete(file: string, folder: string): Promise<void> {
     await this.client
       .deleteObject({
-        Bucket: `${process.env.AWS_S3_BUCKET}/${folder}`,
+        Bucket: `${process.env.S3_BUCKET}/${folder}`,
         Key: file,
       })
       .promise();

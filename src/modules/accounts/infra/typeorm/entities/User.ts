@@ -31,8 +31,8 @@ export class User {
   @Expose({ name: "avatar_url" })
   avatar_url(): string {
     switch (process.env.STORAGE_TYPE) {
-      case "S3":
-        return `${process.env.AWS_BUCKET_URL}/avatars/${this.avatar}`;
+      case "S3_COMPATIBLE":
+        return `${process.env.S3_BUCKET_URL}/avatars/${this.avatar}`;
 
       case "LOCAL":
         return `${process.env.APP_API_URL}/avatars/${this.avatar}`;

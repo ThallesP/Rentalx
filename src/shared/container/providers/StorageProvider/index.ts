@@ -1,11 +1,11 @@
 import { container } from "tsyringe";
 
 import { LocalStorageProvider } from "./implementations/LocalStorageProvider";
-import { S3StorageProvider } from "./implementations/S3StorageProvider";
+import { S3CompatibleStorageProvider } from "./implementations/S3CompatibleStorageProvider";
 import { IStorageProvider } from "./IStorageProvider";
 
 const storageType = {
-  S3: S3StorageProvider,
+  S3_COMPATIBLE: S3CompatibleStorageProvider,
   LOCAL: LocalStorageProvider,
 };
 
